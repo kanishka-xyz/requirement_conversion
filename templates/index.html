@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Requirement to Tech Spec</title>
+</head>
+<body>
+  <h1>AI Requirement Converter</h1>
+  <textarea id="reqInput" placeholder="Enter high-level requirement..." rows="6" cols="50"></textarea><br>
+  <button onclick="convert()">Convert</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function convert() {
+      const req = document.getElementById("reqInput").value;
+      const res = await fetch("http://127.0.0.1:5000/convert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ requirement: req })
+      });
+      const data = await res.json();
+      document.getElementById("output").textContent = data.output || "Error.";
+    }
+  </script>
+</body>
+</html>
